@@ -9,6 +9,12 @@
     g.setFontAlign(0,0);
 
     let bp = Math.round(Bangle.getHealthStatus().bpm||Bangle.getHealthStatus("last").bpm);
+    
+    if (largeComplication) {
+      // move hear rate count left, so overall reading is centered
+      x -= 10;
+    }
+    
     g.drawString(bp, x,y);
 
     if (Bangle.isHRMOn()) {
@@ -21,12 +27,13 @@
     x += g.stringWidth(bp);
     
     let Text = 'bpm';
-    if (!largeComplication) {
+    if (largeComplication) {
+      x += 3;
+    } else {
       // shrink & rotate bpm text
       g.setFontAlign(0, 0, 3);
       g.setFont('Vector', 10);
-      x += 3;
-      y += 4;
+      x -= 10;
     }
     g.drawString(Text, x,y);
     
