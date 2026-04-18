@@ -9,8 +9,6 @@
     g.setFontAlign(0,0);
 
     let bp = Math.round(Bangle.getHealthStatus().bpm||Bangle.getHealthStatus("last").bpm);
-    x += g.stringWidth(bp);
-
     g.drawString(bp, x,y);
 
     if (Bangle.isHRMOn()) {
@@ -19,6 +17,9 @@
       g.setColor(Settings.Foreground === 'Theme' ? g.theme.fg : Settings.Foreground || '#000000');
     }
 
+    // move write possition
+    x += g.stringWidth(bp);
+    
     let Text = 'bpm';
     if (!largeComplication) {
       // shrink & rotate bpm text
