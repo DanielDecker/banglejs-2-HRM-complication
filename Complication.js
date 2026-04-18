@@ -1,23 +1,33 @@
 ;(function () {
-  let Months = [
-    'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'
-  ];
-
   exports.draw = function draw (x,y, Radius, Settings) {
     let halfScreenWidth   = g.getWidth() / 2;
     let largeComplication = (x === halfScreenWidth);
 
+    // init font
     g.setColor(Settings.Foreground === 'Theme' ? g.theme.fg : Settings.Foreground || '#000000');
     g.setFont('Vector', 18);
     g.setFontAlign(0,0);
 
-    let today = new Date(), Text;
-    if (largeComplication) {
-      Text = Months[today.getMonth()] + ' ' + today.getDate();
+    let bp = Math.round(Bangle.getHealthStatus().bpm||Bangle.getHealthStatus("last").bpm);
+    x += g.stringWidth(bp);
+
+    g.drawString(bp, x,y);
+
+    if (Bangle.isHRMOn()) {
+      g.setColor('#f00');     // on = red
     } else {
-      Text = '' + today.getDate();
+      g.setColor(Settings.Foreground === 'Theme' ? g.theme.fg : Settings.Foreground || '#000000');
     }
 
+    let Text = 'bpm';
+    if (!largeComplication) {
+      // shrink & rotate bpm text
+      g.setFontAlign(0, 0, 3);
+      g.setFont('Vector', 10);
+      x += 3;
+      y += 4;
+    }
     g.drawString(Text, x,y);
+    
   };
 })();
