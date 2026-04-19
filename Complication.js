@@ -14,6 +14,9 @@
     
     if (largeComplication) {
       // move heart rate count left, so overall reading is centered
+      x -= textLength;
+      
+    } else {
       x -= (textLength/2);
     }
     
@@ -29,13 +32,10 @@
     x += textLength;
     
     let Text = 'bpm';
-    if (largeComplication) {
-      //x += spaceLength;
-    } else {
+    if (!largeComplication) {
       // shrink & rotate bpm text
       g.setFontAlign(0, -1, 3);
       g.setFont('Vector', 10);
-      //x -= 10;
       y -= 2;
     }
     g.drawString(Text, x,y);
