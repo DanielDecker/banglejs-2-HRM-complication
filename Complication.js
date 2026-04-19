@@ -6,14 +6,14 @@
     // init font
     g.setColor(Settings.Foreground === 'Theme' ? g.theme.fg : Settings.Foreground || '#000000');
     g.setFont('Vector', 18);
-    g.setFontAlign(0,0);
+    g.setFontAlign(-1,0);
 
     let bp = Math.round(Bangle.getHealthStatus().bpm||Bangle.getHealthStatus("last").bpm);
     let textLength = g.stringWidth(bp);
     let spaceLength = 6;
     
     if (largeComplication) {
-      // move hear rate count left, so overall reading is centered
+      // move heart rate count left, so overall reading is centered
       x -= (textLength/2);
     }
     
@@ -30,12 +30,12 @@
     
     let Text = 'bpm';
     if (largeComplication) {
-      x += spaceLength;
+      //x += spaceLength;
     } else {
       // shrink & rotate bpm text
-      g.setFontAlign(0, 0, 3);
+      g.setFontAlign(0, -1, 3);
       g.setFont('Vector', 10);
-      x -= 10;
+      //x -= 10;
       y -= 2;
     }
     g.drawString(Text, x,y);
